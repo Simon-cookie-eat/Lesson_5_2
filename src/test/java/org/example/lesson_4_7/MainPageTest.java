@@ -43,16 +43,19 @@ public class MainPageTest {
 
     @Test
     public void clickFirstSearchedLink() {
+        String seleniumLink = "https://www.selenium.dev/";
+
         WebElement searchField = driver.findElement(By.cssSelector("#sb_form_q"));
         searchField.sendKeys("Selenium");
 
         WebElement searchButton = driver.findElement(By.cssSelector("[for = sb_form_go]"));
         searchButton.click();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
-        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".b_attribution > cite")));
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".b_attribution > cite"))));
+
         List<WebElement> listOfLinks = driver.findElements(By.cssSelector(".b_attribution > cite"));
 
-        assertEquals("https://www.selenium.dev/", listOfLinks.get(0));
+        assertEquals("https://www.selenium.dev/", listOfLinks.get(0).toString());
 
         clickLinkNumber(listOfLinks, 0);
 
