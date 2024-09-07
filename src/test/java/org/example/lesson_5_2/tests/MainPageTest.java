@@ -41,6 +41,7 @@ public class MainPageTest {
         driver.quit();
     }
 
+    @Test
     public void searchFieldValueCheck() {
         String input = "text for search";
         MainPage mp = new MainPage(driver);
@@ -50,7 +51,7 @@ public class MainPageTest {
         assertEquals(input, rp.getTextFromField(), "Текст не совпадает");
     }
 
-    @Test
+    @RepeatedTest(10)
     public void firstSearchedLinkCheck() {
         String seleniumLink = "https://www.selenium.dev/";
         String input = "Selenium";
