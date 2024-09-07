@@ -5,12 +5,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-//https://www.bing.com/
+// https://www.bing.com/
 
 public class MainPage {
 
     @FindBy(css = "#sb_form_q")
     private WebElement searchField;
+
+    private WebDriver driver;
 
     public void search(String searchQuery){
         searchField.sendKeys(searchQuery);
@@ -19,6 +21,7 @@ public class MainPage {
     }
 
     public MainPage(WebDriver driver){
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
 
