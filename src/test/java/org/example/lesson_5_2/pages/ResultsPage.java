@@ -15,6 +15,8 @@ public class ResultsPage {
     @FindBy(css = "h2 > a[href]")
     private List <WebElement> results;
 
+    private WebDriver driver;
+
     public void clickLinkNumber(int number){
         results.get(number).click();
         System.out.println("Нажатие на результат по номером " + number);
@@ -26,7 +28,9 @@ public class ResultsPage {
         return value;
     }
 
-    public ResultsPage(WebDriver driver){
+    public ResultsPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(driver, this);
     }
+
 }

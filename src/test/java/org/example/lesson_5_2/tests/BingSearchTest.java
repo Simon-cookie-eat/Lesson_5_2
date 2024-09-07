@@ -6,24 +6,17 @@ import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPageTest {
+public class BingSearchTest {
     private WebDriver driver;
-
-    public void clickLinkNumber(List<WebElement> list, int number){
-        list.get(number).click();
-    }
 
     @BeforeEach
     public void setUp() {
@@ -41,17 +34,8 @@ public class MainPageTest {
         driver.quit();
     }
 
-    public void searchFieldValueCheck() {
-        String input = "text for search";
-        MainPage mp = new MainPage(driver);
-        mp.search(input);
-
-        ResultsPage rp = new ResultsPage(driver);
-        assertEquals(input, rp.getTextFromField(), "Текст не совпадает");
-    }
-
     @Test
-    public void firstSearchedLinkCheck() {
+    public void searchedResultsTest() {
         String seleniumLink = "https://www.selenium.dev/";
         String input = "Selenium";
         MainPage mp = new MainPage(driver);
@@ -64,5 +48,15 @@ public class MainPageTest {
         if (tabs.size() > 1) driver.switchTo().window(tabs.get(1).toString());
 
         assertEquals(seleniumLink, driver.getCurrentUrl());
+    }
+
+    @Test
+    public void searchFieldTest() {
+        String input = "text for search";
+        MainPage mp = new MainPage(driver);
+        mp.search(input);
+
+        ResultsPage rp = new ResultsPage(driver);
+        assertEquals(input, rp.getTextFromField(), "Текст не совпадает");
     }
 }
