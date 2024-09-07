@@ -1,5 +1,7 @@
-package org.example.lesson_4_7;
+package org.example.lesson_5_2.tests;
 
+import org.example.lesson_5_2.pages.MainPage;
+import org.example.lesson_5_2.pages.ResultsPage;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,7 +25,6 @@ public class MainPageTest {
         list.get(number).click();
     }
 
-
     @BeforeEach
     public void setUp() {
         ChromeOptions options = new ChromeOptions();
@@ -33,7 +34,6 @@ public class MainPageTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://www.bing.com/");
-
     }
 
     @AfterEach
@@ -41,26 +41,28 @@ public class MainPageTest {
         driver.quit();
     }
 
+    public void searchFieldValueCheck() {
+        String input = "text for search";
+        MainPage mp = new MainPage(driver);
+        mp.search(input);
+
+        ResultsPage rp = new ResultsPage(driver);
+        assertEquals(input, rp.getTextFromField(), "Текст не совпадает");
+    }
+
     @Test
-    public void clickFirstSearchedLink() {
+    public void firstSearchedLinkCheck() {
         String seleniumLink = "https://www.selenium.dev/";
+        String input = "Selenium";
+        MainPage mp = new MainPage(driver);
+        mp.search(input);
 
-        WebElement searchField = driver.findElement(By.cssSelector("#sb_form_q"));
-        searchField.sendKeys("Selenium");
-
-        WebElement searchButton = driver.findElement(By.cssSelector("[for = sb_form_go]"));
-        searchButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(6));
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(".b_attribution > cite"))));
-
-        List<WebElement> listOfLinks = driver.findElements(By.cssSelector(".b_attribution > cite"));
-
-        assertEquals("https://www.selenium.dev/", listOfLinks.get(0).toString());
-
-        clickLinkNumber(listOfLinks, 0);
+        ResultsPage rp = new ResultsPage(driver);
+        rp.clickLinkNumber(0);
 
         ArrayList tabs = new ArrayList<> (driver.getWindowHandles());
         if (tabs.size() > 1) driver.switchTo().window(tabs.get(1).toString());
-    }
 
+        assertEquals(seleniumLink, driver.getCurrentUrl());
+    }
 }
