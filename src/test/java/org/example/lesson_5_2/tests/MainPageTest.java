@@ -2,10 +2,10 @@ package org.example.lesson_5_2.tests;
 
 import org.example.lesson_5_2.pages.MainPage;
 import org.example.lesson_5_2.pages.ResultsPage;
-import org.junit.jupiter.api.*;
-
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +14,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MainPageTest {
     private WebDriver driver;
